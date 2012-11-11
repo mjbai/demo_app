@@ -178,7 +178,7 @@ input, textarea, select, .uneditable-input {
 
 .error {
   border: 1px #f00;
-  background: #fdd;
+  //background: #fdd;
 }
 
 
