@@ -1,0 +1,12 @@
+c:/RailsInstaller/Ruby1.9.3/bin/ruby.exe extconf.rb 
+creating Makefile
+
+make
+generating generator-i386-mingw32.def
+compiling generator.c
+linking shared-object json/ext/generator.so
+
+make install
+/usr/bin/install -c -m 0755 generator.so c:/Sites/rails_projects/demo_app/faker/ruby/1.9.1/gems/json-1.7.5/lib/json/ext
+/usr/bin/install: cannot remove `c:/Sites/rails_projects/demo_app/faker/ruby/1.9.1/gems/json-1.7.5/lib/json/ext/generator.so': Permission denied
+make: *** [c:/Sites/rails_projects/demo_app/faker/ruby/1.9.1/gems/json-1.7.5/lib/json/ext/generator.so] Error 1
