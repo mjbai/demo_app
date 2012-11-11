@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :admin_user,     only: [:edit, :update, :destroy]
+  before_filter :correct_user,   only: [:edit, :update]
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -34,7 +33,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -44,7 +42,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
 	flash[:success] = "Welcome to the My Dic App!"
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+	sign_in @user
+        format.html { redirect_to @user }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -56,11 +55,13 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+	flash[:success] = "User profile was updated!"
+	if current_user?(@user)
+	  sign_in @user
+	end 
+        format.html { redirect_to @user }
     	format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,10 +76,27 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
+    flash[:success] = "User deleted."
+
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end
  
+  private
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless (current_user?(@user) || current_user.admin?)
+    end    
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end    
+  
 end
