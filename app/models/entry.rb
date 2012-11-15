@@ -1,8 +1,6 @@
 class Entry < ActiveRecord::Base
-  attr_accessible :def, :user_id, :word
-
+  attr_accessible :context, :definition, :example_sentence, :word
   belongs_to :user
-
-  validates :word, :length => { :maximum => 140 }
-
+  
+  validates :user_id, presence: true
 end
