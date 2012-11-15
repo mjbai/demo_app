@@ -2,7 +2,6 @@
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
-
       <ul>
       <% @entry.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -16,10 +15,12 @@ function saveToTemporaryFile()
 {
     zwibbler.saveToTemporaryFile(
         "png",
-        function(url) {
-            :image = url;
-            document.getElementById("image").src = url;
-            
+	function(url) {
+	    alert("Got temporary url: " + url );
+	    var input = document.createElement('input'); 
+   	    input.setAttribute('type','hidden');
+            input.setAttribute('image',url);
+            document.body.appendChild(input);  
     });
 }
 </script>
@@ -43,11 +44,11 @@ function saveToTemporaryFile()
   </div>
   <div class="field">
     <%= f.label :image %><br />
-    <script src="http://zwibbler.com/component.js#width=700&height=400" type="text/javascript"></script>
-    <input type="button" value="Save" onclick="saveToTemporaryFile()">
+    <script src="http://zwibbler.com/component.js#width=700&height=500" type="text/javascript"></script>
+    <input type="button" value="Save Image" onclick="saveToTemporaryFile()">
   </div>
   </div>
   <div class="actions">
-	  <%= f.submit :onclick=> "saveToTemporaryFile()" %>
+	  <%= f.submit %>
   </div>
 <% end %>

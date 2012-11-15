@@ -1,7 +1,20 @@
+#require 'rest-open-uri'
+
 class Entry < ActiveRecord::Base
-  attr_accessible :def, :user_id, :word
 
+  attr_accessible :context, :definition, :example_sentence, :image,  :word
   belongs_to :user
+  #has_attached_file :image
+  
+  validates :word, presence: true, length: { maximum: 50} 
+  
+  validates :user_id, presence: true
+  default_scope order: 'entries.created_at DESC'
 
-  validates : :word, :length => { :maximum => 140 }
+  private
+  #Get the picture from a given url. 
+   def picture_from_url(url)
+      self.image = open(url)
+   end
+
 end

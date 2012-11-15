@@ -7,12 +7,7 @@
 
 <p>
   <b>Def:</b>
-  <%= @entry.definition %>
-  </p>
-
-  <p>
-  <b>Image:</b>
-  <%= @entry.image %>
+  <%= @entry.def %>
 </p>
 
 <p>
