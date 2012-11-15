@@ -15,10 +15,7 @@ ActiveRecord::Schema.define(:version => 20121111042929) do
 
   create_table "entries", :force => true do |t|
     t.string   "word"
-    t.text	"context"
-    t.text	"definition"
-    t.text	"example_sentence"
-    t.string	"image"
+    t.string   "def"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
