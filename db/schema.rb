@@ -11,6 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(:version => 20121111042929) do
+
+  create_table "entries", :force => true do |t|
+    t.string   "word"
+    t.string   "def"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+=======
 ActiveRecord::Schema.define(:version => 20121115180508) do
 
   create_table "entries", :force => true do |t|
@@ -26,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20121115180508) do
 
   add_index "entries", ["user_id", "created_at"], :name => "index_entries_on_user_id_and_created_at"
 
+>>>>>>> b1e4136a13401a1643e2f3ce31276fdacd9518ac
   create_table "users", :force => true do |t|
     t.string   "first"
     t.string   "last"

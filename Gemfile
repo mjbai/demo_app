@@ -30,7 +30,11 @@ group :test do
   gem 'capybara', '1.1.2'
 end
 
-#group :production do
-#  gem 'pg', '0.12.2'
-#end
+group :production do
+<<<<<<< HEAD
+  gem 'pg', '0.12.2'
+=======
+  gem 'pg', '0.12.2'
+>>>>>>> b1e4136a13401a1643e2f3ce31276fdacd9518ac
+end
 
