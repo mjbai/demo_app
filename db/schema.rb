@@ -11,18 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121111042929) do
+ActiveRecord::Schema.define(:version => 20121115180508) do
 
   create_table "entries", :force => true do |t|
     t.string   "word"
-    t.text	"context"
-    t.text	"definition"
-    t.text	"example_sentence"
-    t.string	"image"
+    t.text     "context"
+    t.text     "definition"
+    t.text     "example_sentence"
+    t.string   "image"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
+
+  add_index "entries", ["user_id", "created_at"], :name => "index_entries_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "first"
