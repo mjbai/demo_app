@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     respond_to do |format|
       if @user.save
-	flash[:success] = "Welcome to the My Dic App!"
+	flash[:success] = "Welcome to the Twixionary App!"
 	sign_in @user
         format.html { redirect_to @user }
         format.json { render json: @user, status: :created, location: @user }

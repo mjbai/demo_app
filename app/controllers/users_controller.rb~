@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_filter :admin_user,     only: [:edit, :update, :destroy]
+  before_filter :admin_user,     only: [:destroy]
   before_filter :correct_user,   only: [:edit, :update]
 
   # GET /users
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
 	flash[:success] = "User profile was updated!"
-	if !current_user.admin 
+	if current_user?(@user)
 	  sign_in @user
 	end 
         format.html { redirect_to @user }

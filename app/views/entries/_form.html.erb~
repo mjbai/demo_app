@@ -11,6 +11,20 @@
     </div>
   <% end %>
 
+<script type="text/javascript">
+function saveToTemporaryFile()
+{
+    zwibbler.saveToTemporaryFile(
+        "png",
+        function(url) {
+            :image = url;
+            document.getElementById("image").src = url;
+            
+    });
+}
+</script>
+  
+
   <div class="field">
     <%= f.label :word %><br />
     <%= f.text_field :word %>
@@ -28,10 +42,12 @@
     <%= f.text_field :example_sentence %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+    <%= f.label :image %><br />
+    <script src="http://zwibbler.com/component.js#width=700&height=400" type="text/javascript"></script>
+    <input type="button" value="Save" onclick="saveToTemporaryFile()">
+  </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :onclick="saveToTemporaryFile()" %>
   </div>
 <% end %>
