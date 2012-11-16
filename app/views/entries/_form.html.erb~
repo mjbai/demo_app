@@ -49,10 +49,10 @@ function saveToTemporaryFile()
 </div>
 </div>
   <div class="field">
-	  <%= f.label :image %> 
-	  <input type="button" value="Save Image" onclick="saveToTemporaryFile()"> 
+	  <%= f.label :image %>  
  	  <input type="button" value="Hide Drawing Tool" onclick="zwibbler.hide()">
-    	  <input type="button" value="Show Drawing Tool" onclick="zwibbler.show()">
+	  <input type="button" value="Show Drawing Tool" onclick="zwibbler.show()">
+	  <input type="button" value="Save Image" onclick="saveToTemporaryFile()">
 	  <br />
     <script src="http://zwibbler.com/component.js#width=700&height=500" type="text/javascript"></script>
     <%= f.hidden_field(:imageurl) %>
@@ -62,8 +62,10 @@ function saveToTemporaryFile()
   </div>
 <% end %>
 
+<div class="hide_field">
 <%= form_tag({:action => 'lookup'}, :id => 'lookup-update-form', :name => 'lookup-update-form', :remote => true, :'data-update-target' => 'lookup-update-container') do %>
   <%= text_field 'word-mirror', nil %>  
 <%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit', :id => 'lookup-update-submit', :name => 'lookup-update-submit'  %>
 <% end %>
+</div>
 
