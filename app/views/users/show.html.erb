@@ -2,14 +2,6 @@
 
 <% provide(:title, @user.first + " " + @user.last) %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.first %> <%= @user.last %>
-      </h1>
-    </section>
-  </aside>
 	<div class="span8">
 		<% if @user.entries.any? %>
 		<h3>Entries (<%= @user.entries.count %>)</h3>
@@ -17,13 +9,22 @@
 			<%= render @entries %>
 		</ol>
 		<%= will_paginate @entries %>
-		<% end %>	
-</div>
-    <% if current_user.admin? || current_user?(@user) %>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
+	<% end %>
+      </div>
+     <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.first %> <%= @user.last %>
+</h1>
+     <% if current_user.admin? || current_user?(@user) %>
+	<%= link_to 'Edit', edit_user_path(@user) %>
 <%end %>
     <% if current_user.admin? && !current_user?(@user) %>
-      <%= link_to "Delete", user_path(@user), method: :delete,
-           data: { confirm: "You sure?" } %> |
-    <% end %>
-<%= link_to 'Back', users_path %>
+      | <%= link_to "Delete", user_path(@user), method: :delete,
+           data: { confirm: "You sure?" } %>
+   <% end %>
+     </section>
+    </aside>
+    </div>
+    <%= link_to '< Back', users_path %>
