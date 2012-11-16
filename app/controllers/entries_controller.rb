@@ -108,14 +108,10 @@ class EntriesController < ApplicationController
   # DELETE /entries/1
   # DELETE /entries/1.json
   def destroy
-    @entry = Entry.find(params[:id])
     @entry.destroy
-
-    respond_to do |format|
-      format.html { redirect_to entries_url }
-      format.json { head :no_content }
-    end
+    redirect_to root_url
   end
+
   
   def search(word)
     @api_key = "c76094e55b60175b5cbb4c91d15f9701"
@@ -126,7 +122,7 @@ class EntriesController < ApplicationController
   private
     def correct_user
       @entry = current_user.entries.find_by_id(params[:id])
-      redirect_to root_url if (@micropost.nil? || current_user.admin?)
+      redirect_to root_url if (@entry.nil? || current_user.admin?)
     end  
 
     def admin_user

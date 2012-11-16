@@ -27,7 +27,7 @@ class EntriesController < ApplicationController
  #render :partial => @lookup2, :content_type =>'text/html'
   #render :partial => 'lookup', :content_type =>'text/html'
   #render :partial => 'lookup2', :content_type =>'text/html'
-  render :text => '<h2>['+find_word+']</h2>'+'<center><audio controls="controls"><source src="'+ find_mp3 +'" type="audio/mp3"></audio></center>' +'<br><h3>'+ find_def + '</h2>' , :content_type =>'text/html'
+  render :text => '<h2>Word: ['+find_word+']</h2>'+'<center><audio controls="controls"><source src="'+ find_mp3 +'" type="audio/mp3"></audio></center>' +'<br><h3>'+ find_def + '</h2>' , :content_type =>'text/html'
  #render :text => find_word
  # render :text => find_pronounce, :content_type =>'text/html' 
   #render :text => find_mp3, :content_type =>'text/html'
@@ -108,14 +108,10 @@ class EntriesController < ApplicationController
   # DELETE /entries/1
   # DELETE /entries/1.json
   def destroy
-    @entry = Entry.find(params[:id])
     @entry.destroy
-
-    respond_to do |format|
-      format.html { redirect_to entries_url }
-      format.json { head :no_content }
-    end
+    redirect_to root_url
   end
+
   
   def search(word)
     @api_key = "c76094e55b60175b5cbb4c91d15f9701"
