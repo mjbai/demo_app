@@ -313,3 +313,7 @@ input, textarea, select, .uneditable-input {
   @extend .error;
  }
 
+.hide_field
+{
+  display:none;
+}

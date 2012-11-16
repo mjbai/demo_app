@@ -1,5 +1,9 @@
 <li>
-<span class="content">learned <b><%= entry.word %></b> means '<%= entry.definition %>'</span>
+ <% if entry.image? %>
+	<%= image_tag entry.image.url, :class=>"imagefeed" %>
+<% end %>
+  <span class="content">wrote <i><%= entry.example_sentence %></i></span>
+ <span class="content">learned <b><%= link_to entry.word, entry %></b> means '<%= entry.definition %>' </span>
   <span class="timestamp">
     during <%= entry.context %> <%= time_ago_in_words(entry.created_at) %> ago.
   </span>

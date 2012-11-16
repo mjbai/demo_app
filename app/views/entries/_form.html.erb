@@ -62,8 +62,10 @@ function saveToTemporaryFile()
   </div>
 <% end %>
 
+<div class="hide_field">
 <%= form_tag({:action => 'lookup'}, :id => 'lookup-update-form', :name => 'lookup-update-form', :remote => true, :'data-update-target' => 'lookup-update-container') do %>
   <%= text_field 'word-mirror', nil %>  
 <%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit', :id => 'lookup-update-submit', :name => 'lookup-update-submit'  %>
+</div>
 <% end %>
 

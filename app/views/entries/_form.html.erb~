@@ -46,7 +46,8 @@ function saveToTemporaryFile()
 	  <div id="lookup-update-container">
 	...
 	</div>
-  </div>
+</div>
+</div>
   <div class="field">
 	  <%= f.label :image %> 
 	  <input type="button" value="Save Image" onclick="saveToTemporaryFile()"> 
