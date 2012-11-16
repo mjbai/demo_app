@@ -1,20 +1,42 @@
 <p id="notice"><%= notice %></p>
 
+<% provide(:title, @entry.word) %>
+<div class="row">
+<% if @entry.image? %>
+  <aside class="span4">
+    <section>
+	<%= image_tag @entry.image.url %>
+    </section>
+    </aside>
+ <% end %>
+	<div class="span8">
+	
 <p>
-  <b>Word:</b>
-  <%= @entry.word %>
+<h2><%= @entry.word %></h2>
 </p>
 
 <p>
-  <b>Def:</b>
-  <%= @entry.def %>
+  <h3>Definition:</h3>
+  <%= @entry.definition %>
+</p>
+
+<p>
+  <b>Example Sentence:</b>
+  <%= @entry.example_sentence %>
 </p>
 
 <p>
   <b>User:</b>
   <%= @entry.user_id %>
 </p>
+</div>
+</div>
+    <% if current_user.admin? || current_user?(@entry.user_id) %>
+	<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%end %>
+    <% if current_user.admin? %>
+      <%= link_to "Delete", entry_path(@entry), method: :delete,
+           data: { confirm: "You sure?" } %> |
+    <% end %>
+<%= link_to 'Back', users_path %>
 
-
-<%= link_to 'Edit', edit_entry_path(@entry) %> |
-<%= link_to 'Back', entries_path %>

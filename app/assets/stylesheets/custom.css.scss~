@@ -12,6 +12,54 @@ html {
 
 body {
   padding-top: 60px;
+  background-image: url('Web Template 1 E-Sil.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+.hero-unit {
+  padding: 75px;
+  margin-bottom: 75px;
+  background-color: #ffffd6;
+  @include border-radius(45px);
+}
+
+.left-hero-unit {
+  padding: 40px;
+  width: 500px;
+  margin-bottom: 20px;
+  background-color: #ffffd6;
+  @include border-radius(25px);
+  p {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: $baseLineHeight * 1.5;
+    color: $heroUnitLeadColor;
+  }
+  h2 {
+	text-align: left;
+}
+}
+
+.btn {
+  padding: 4px 10px 4px;
+  line-height: $baseLineHeight;
+  *line-height: 20px;
+  color: #fff;
+  @include buttonBackground(#ff3800, #ff5500);
+  border: 1px solid $btnBorder;
+  *border: 0; // Remove the border to prevent IE7's black border on input:focus
+  border-bottom-color: darken($btnBorder, 10%);
+  @include border-radius(4px);
+  @include ie7-restore-left-whitespace(); // Give IE7 some love
+  @include box-shadow(#{inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
+}
+
+.btn-large {
+  padding: 20px 25px;
+  font-size: $baseFontSize + 4px;
+  line-height: normal;
+  @include border-radius(10px);
 }
 
 section {
@@ -69,12 +117,37 @@ p {
   padding-top: 9px;
   font-weight: bold;
   line-height: 1;
+
 }
 
 #logo:hover {
   color: #fff;
   text-decoration: none;
 }
+
+.navbar-inner {
+  background-color: #ff3800; /* fallback color, place your own */
+
+  /* Gradients for modern browsers, replace as you see fit */
+  background-image: -moz-linear-gradient(top, #ff3800, #ff5500);
+  background-image: -ms-linear-gradient(top, #ff3800, #ff5500);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ff3800), to(#ff5500));
+  background-image: -webkit-linear-gradient(top, #ff3800, #ff5500);
+  background-image: -o-linear-gradient(top, #ff3800, #ff5500);
+  background-image: linear-gradient(top, #ff3800, #ff5500);
+  background-repeat: repeat-x;
+
+  /* IE8-9 gradient filter */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3800', endColorstr='#ff5500', GradientType=0);
+}
+
+.navbar .nav > li > a {
+  float: none;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+
 
 /* footer */
 
@@ -90,7 +163,7 @@ footer a {
 }  
 
 footer a:hover { 
-  color: #222;
+  color: #ff3800;
 }
 
 footer small {
@@ -137,9 +210,61 @@ aside {
   margin-right: 10px;
 }
 
+/* users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
+
+/* entries */
+
+.entries {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+.content {
+  display: block;
+}
+.timestamp {
+  color: $grayLight;
+}
+
+.imagefeed {
+   float:right;
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+  width: 60px;
+  height: 60px;
+}
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
+
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 

@@ -1,7 +1,18 @@
 class EntriesController < ApplicationController
-  
+  before_filter :signed_in_user, only: [:create, :destroy]
+  before_filter :correct_user,   only: [:edit, :update, :destroy]
+
+  # POST /entries/lookup
+  def lookup
+    word = params['word-mirror'][0].strip
+    api_key = "c76094e55b60175b5cbb4c91d15f9701"
+    response = HTTParty.get('https://api.pearson.com/longman/dictionary/entry.json?q=' + word + '&apikey=' + api_key)
+    @lookup = response
+    render :partial => 'lookup', :content_type => 'text/html'
+  end
+
   # GET /entries
-  # GET /entries.json
+  # GET /entries.json    
   def index
     @entries = Entry.all
 
@@ -41,9 +52,9 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-
     @entry = current_user.entries.build(params[:entry])
-
+    url = params[:entry][:imageurl]
+    @entry.picture_from_url(url)
     respond_to do |format|
       if @entry.save
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
@@ -82,7 +93,20 @@ class EntriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def search(word)
+    @api_key = "c76094e55b60175b5cbb4c91d15f9701"
 
+    return HTTParty.get('https://api.pearson.com/longman/dictionary/entry.json?q=' + word + '&apikey=' + @api_key)
+  end
+    
   private
+    def correct_user
+      @entry = current_user.entries.find_by_id(params[:id])
+      redirect_to root_url if @micropost.nil?
+    end  
 
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end    
 end

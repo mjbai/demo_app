@@ -2,6 +2,7 @@
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+
       <ul>
       <% @entry.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,26 +11,27 @@
     </div>
   <% end %>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 function saveToTemporaryFile()
 {
     zwibbler.saveToTemporaryFile(
         "png",
 	function(url) {
-	    alert("Got temporary url: " + url );
-            document.getElementByid("image").value = url; 
+	alert("Image saved!");
+	document.getElementById('entry_imageurl').setAttribute('value', url);
     });
 }
 </script>
-  
 
+<div class="row">
+<aside class="span 4">
   <div class="field">
     <%= f.label :word %><br />
-    <%= f.text_field :word %>
+	<%= f.text_field :word, { :onchange => "document.getElementById('word-mirror_').value=document.getElementById('entry_word').value; document.getElementById('lookup-update-submit').click();" } %>
   </div>
   <div class="field">
     <%= f.label :context %><br />
-    <%= f.text_field :context %>
+    <%= f.select :context, [['Conversation','conversation'],['Reading','reading'],['TV','tv']] %>
   </div>
   <div class="field">
     <%= f.label :definition %><br />
@@ -37,16 +39,30 @@ function saveToTemporaryFile()
   </div>
    <div class="field">
     <%= f.label :example_sentence %><br />
-    <%= f.text_field :example_sentence %>
+    <%= f.text_area :example_sentence, :size => "20x5"%>
+  </div>
+  </aside>
+  <div class="span8">
+	  <div id="lookup-update-container">
+	...
+	</div>
   </div>
   <div class="field">
-    <%= f.label :image %><br />
+	  <%= f.label :image %> 
+	  <input type="button" value="Save Image" onclick="saveToTemporaryFile()"> 
+ 	  <input type="button" value="Hide Drawing Tool" onclick="zwibbler.hide()">
+    	  <input type="button" value="Show Drawing Tool" onclick="zwibbler.show()">
+	  <br />
     <script src="http://zwibbler.com/component.js#width=700&height=500" type="text/javascript"></script>
-    <input type="button" value="Save Image" onclick="saveToTemporaryFile()">
-    <input type="hidden" id="image" name="image" value="">
-  </div>
+    <%= f.hidden_field(:imageurl) %>
   </div>
   <div class="actions">
-	  <%= f.submit %>
+    <%= f.submit %>
   </div>
 <% end %>
+
+<%= form_tag({:action => 'lookup'}, :id => 'lookup-update-form', :name => 'lookup-update-form', :remote => true, :'data-update-target' => 'lookup-update-container') do %>
+  <%= text_field 'word-mirror', nil %>  
+<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit', :id => 'lookup-update-submit', :name => 'lookup-update-submit'  %>
+<% end %>
+

@@ -1,0 +1,12 @@
+<li>
+<span class="content">learned <b><%= entry.word %></b> means '<%= entry.definition %>'</span>
+  <span class="timestamp">
+    during <%= entry.context %> <%= time_ago_in_words(entry.created_at) %> ago.
+  </span>
+  <% if current_user?(entry.user) %>
+    <%= link_to "delete", entry, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: entry.word %>
+  <% end %>  
+</li>
+

@@ -1,0 +1,14 @@
+<a href="<%= user_path(current_user) %>">
+  <%= gravatar_for current_user %>
+</a>
+<h1>
+  <%= current_user.first + ' ' + current_user.last %>
+</h1>
+<span>
+	<h3><%= pluralize(current_user.entries.count, "entry") %></h3>
+</span>
+<span>
+	<%= link_to "view my profile", current_user %> |
+	<%= link_to "add new word", "/entries/new" %>
+</span>
+

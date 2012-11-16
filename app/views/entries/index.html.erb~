@@ -14,7 +14,13 @@
   <tr>
     <td><%= entry.word %></td>
     <td><%= entry.definition %></td>
-    <td><%= entry.image %></td>
+    <td>
+	<% if entry.image? %>
+		<%= image_tag entry.image.url, :width=>"100"%>
+	<% else %>
+  		No attachment available!
+	<% end %>
+   </td>
     <td><%= entry.user_id %></td>
     <td><%= link_to 'Show', entry %></td>
     <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
