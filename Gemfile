@@ -10,6 +10,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'httparty'
 gem 'awesome_print'
 gem 'paperclip'
+gem 'ldoce'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

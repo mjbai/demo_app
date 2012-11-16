@@ -5,10 +5,33 @@ class EntriesController < ApplicationController
   # POST /entries/lookup
   def lookup
     word = params['word-mirror'][0].strip
-    api_key = "c76094e55b60175b5cbb4c91d15f9701"
-    response = HTTParty.get('https://api.pearson.com/longman/dictionary/entry.json?q=' + word + '&apikey=' + api_key)
-    @lookup = response
-    render :partial => 'lookup', :content_type => 'text/html'
+
+    Ldoce::Word.api_key = "c76094e55b60175b5cbb4c91d15f9701"
+
+    lookup = Ldoce::Word.search(word)
+    find_def = lookup.definition
+    find_word = lookup.word
+    find_def = find_def.gsub!( '","', "</li><li>" )
+        find_def = find_def.gsub!( '"', "<ol>" )
+
+    find_mp3 = lookup.mp3_url
+
+   # lookup2 = Ldoce::Word.search(word)
+    #find2 = lookup2.definition
+
+    #api_key = "c76094e55b60175b5cbb4c91d15f9701"
+    #response = HTTParty.get('https://api.pearson.com/longman/dictionary/entry.json?q=' + word + '&apikey=' + api_key)
+#   @lookup = response['Entries']['Entry']['Sense'][0]['Subsense'][0]['DEF']['#text']
+     #format.json { render json: @lookup} 
+  # render :partial => @lookup, :content_type =>'text/html'
+ #render :partial => @lookup2, :content_type =>'text/html'
+  #render :partial => 'lookup', :content_type =>'text/html'
+  #render :partial => 'lookup2', :content_type =>'text/html'
+  render :text => '<h2>['+find_word+']</h2>'+'<center><audio controls="controls"><source src="'+ find_mp3 +'" type="audio/mp3"></audio></center>' +'<br><h3>'+ find_def + '</h2>' , :content_type =>'text/html'
+ #render :text => find_word
+ # render :text => find_pronounce, :content_type =>'text/html' 
+  #render :text => find_mp3, :content_type =>'text/html'
+  #render :partial => 'find2', :content_type =>'text/html'
   end
 
   # GET /entries
@@ -103,7 +126,7 @@ class EntriesController < ApplicationController
   private
     def correct_user
       @entry = current_user.entries.find_by_id(params[:id])
-      redirect_to root_url if @micropost.nil?
+      redirect_to root_url if (@micropost.nil? || current_user.admin?)
     end  
 
     def admin_user
